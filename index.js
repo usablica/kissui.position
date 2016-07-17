@@ -27,7 +27,9 @@
     //trigger the events on module init?
     //e.g. when an element is already in the viewport and there is a data-kui-position = "in"
     triggerOnInit: true,
-    attribute: 'data-kui-position'
+    attribute: 'data-kui-position',
+    // to use console.log instead of throw Error
+    safeMode: false
   };
 
   /**
@@ -51,6 +53,20 @@
   ];
 
   /**
+  * Developer friendly console.log / throw Error
+  *
+  */
+  function _debug (msg) {
+    msg = 'Kissui.position: ' + msg;
+
+    if (_options.safeMode == true) {
+      console.log(msg);
+    } else {
+      throw Error(msg);
+    }
+  };
+
+  /**
   * Find elements or import them via options (later)
   */
   function _populate () {
@@ -58,13 +74,24 @@
 
     for (var i = 0;i < elements.length;i++) {
       var element = elements[i];
+      var event = element.getAttribute(_options.attribute);
 
-      _elements.push({
-        element: element,
-        event: element.getAttribute(_options.attribute)
-      });
+      if (_options.events.indexOf(event) >= 0) {
+        _elements.push({
+          element: element,
+          event: event
+        });
+      } else {
+        _debug('Unknown value for data-kui-position attribute.');
+      }
+
     }
   };
+
+  /**
+  *
+  *
+  */
 
   /**
   * Start the module
