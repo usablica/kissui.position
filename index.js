@@ -84,6 +84,18 @@
   };
 
   /**
+  * To bind an event to browser
+  *
+  */
+  function _addEventListener (event, fn) {
+    if (window.addEventListener) { // modern browsers including IE9+
+      window.addEventListener(event, fn, false);
+    } else if (window.attachEvent) { // IE8 and below
+      window.attachEvent('on' + event, fn);
+    }
+  };
+
+  /**
   * Check a single element position and return the correct event name
   *
   */
@@ -225,6 +237,12 @@
     if (_options.triggerOnInit == true) {
       _positions.call(this, _elements);
     }
+
+    //after scrolling
+    _addEventListener('scroll', _positions.bind(this, _elements));
+
+    //after resizing the browser
+    _addEventListener('resize', _positions.bind(this, _elements));
   };
 
   return {
@@ -233,6 +251,7 @@
     on: _on,
     once: _once,
     removeListener: _removeListener,
-    init: _init
+    init: _init,
+    positions: _positions
   };
 }));
