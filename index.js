@@ -76,15 +76,10 @@
       var element = elements[i];
       var event = element.getAttribute(_options.attribute);
 
-      if (_options.events.indexOf(event) >= 0) {
-        _elements.push({
-          element: element,
-          event: event
-        });
-      } else {
-        _error('Unknown value for data-kui-position attribute.');
-      }
-
+      _elements.push({
+        element: element,
+        event: event
+      });
     }
   };
 
@@ -112,6 +107,42 @@
     // check `in` event
     if (elementEvents.indexOf('in') > -1) {
      if (top >= 0 && left >= 0 && bottom <= height && right <= width) {
+       trigger = trigger && true;
+     } else {
+       trigger = false;
+     }
+    }
+
+    // check `top` event
+    if (elementEvents.indexOf('top') > -1) {
+     if (top == 0) {
+       trigger = trigger && true;
+     } else {
+       trigger = false;
+     }
+    }
+
+    // check `left` event
+    if (elementEvents.indexOf('left') > -1) {
+     if (left == 0) {
+       trigger = trigger && true;
+     } else {
+       trigger = false;
+     }
+    }
+
+    // check `right` event
+    if (elementEvents.indexOf('right') > -1) {
+     if (right == width) {
+       trigger = trigger && true;
+     } else {
+       trigger = false;
+     }
+    }
+
+    // check `bottom` event
+    if (elementEvents.indexOf('bottom') > -1) {
+     if (bottom == height) {
        trigger = trigger && true;
      } else {
        trigger = false;
