@@ -18,7 +18,12 @@
   /**
   * To store all available elements with their options
   */
- var _elements = [];
+  var _elements = [];
+
+    /**
+  * EventListener
+  */
+  var _events = [];
 
   /**
   * options
@@ -89,9 +94,72 @@
   };
 
   /**
-  *
+  * Check a single element position and return the correct event name
   *
   */
+  function _position (element) {
+
+  };
+
+  /**
+  * Checks a list of elements and emits the correct event name
+  *
+  */
+  function _positions (elements) {
+
+  };
+
+  /**
+  * listen to an event
+  */
+  function _on (event, listener) {
+    if (typeof _events[event] !== 'object') {
+      _events[event] = [];
+    }
+
+    _events[event].push(listener);
+  };
+
+  /**
+  * Emits an event
+  */
+  function _emit (event) {
+    var i, listeners, length, args = [].slice.call(arguments, 1);
+
+    if (typeof _events[event] === 'object') {
+      listeners = _events[event].slice();
+      length = listeners.length;
+
+      for (i = 0; i < length; i++) {
+        listeners[i].apply(this, args);
+      }
+    }
+  };
+
+  /**
+  * Removes a listener
+  */
+  _removeListener = function (event, listener) {
+    var idx;
+
+    if (typeof _events[event] === 'object') {
+      idx = _events[event].indexOf(listener);
+
+      if (idx > -1) {
+        _events[event].splice(idx, 1);
+      }
+    }
+  };
+
+  /**
+  * Listen to an event once
+  */
+  function _once (event, listener) {
+    _on(event, function fn () {
+      _removeListener(event, fn);
+      listener.apply(this, arguments);
+    });
+  };
 
   /**
   * Start the module
@@ -105,6 +173,9 @@
 
   return {
     _options: _options,
-    _elements: _elements
+    _elements: _elements,
+    on: _on,
+    once: _once,
+    removeListener: _removeListener
   };
 }));

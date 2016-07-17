@@ -7,5 +7,16 @@
         <p data-kui-position="in">This element is tracking by Kissui.Position</p>
 
         <script src='../index.js'></script>
+
+        <script type="text/javascript">
+            kissuiPosition.on('in', function () {
+                console.log('boooo');
+            });
+
+
+            kissuiPosition.once('in', function () {
+                console.log('boooo 2');
+            });
+        </script>
     </body>
 </html>
