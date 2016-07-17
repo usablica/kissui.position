@@ -1,10 +1,15 @@
 <html>
     <head>
-
+        <style>
+          html, body {
+            margin: 0;
+            padding: 0;
+          }
+        </style>
     </head>
 
     <body>
-        <p data-kui-position="in">This element is tracking by Kissui.Position</p>
+        <p data-kui-position="in" style="margin: 0; padding: 0;position: fixed;background-color: red;">This element is tracking by Kissui.Position</p>
 
         <script src='../index.js'></script>
 
@@ -12,11 +17,7 @@
             kissuiPosition.on('in', function () {
                 console.log('boooo');
             });
-
-
-            kissuiPosition.once('in', function () {
-                console.log('boooo 2');
-            });
+            kissuiPosition.init();
         </script>
     </body>
 </html>

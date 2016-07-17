@@ -14,7 +14,6 @@
     root.kissuiPosition = factory(root);
   }
 }(this, function () {
-
   /**
   * To store all available elements with their options
   */
@@ -41,27 +40,20 @@
   * all possible events
   */
   _options.events = [
-    //element is in the viewport
     'in',
-    //element is out of viewport
     'out',
-    //element is in the viewport and it's in the middle of the page
-    'in middle',
-    //element is in the viewport and it's in the very top of the page
-    'in top',
-    //element is in the viewport and it's in the very bottom of the page
-    'in bottom',
-    //element is in the viewport and it's in the left side of the page
-    'in left',
-    //element is in the viewport and it's in the right side of the page
-    'in right'
+    'middle',
+    'top',
+    'bottom',
+    'left',
+    'right'
   ];
 
   /**
   * Developer friendly console.log / throw Error
   *
   */
-  function _debug (msg) {
+  function _error (msg) {
     msg = 'Kissui.position: ' + msg;
 
     if (_options.safeMode == true) {
@@ -75,6 +67,9 @@
   * Find elements or import them via options (later)
   */
   function _populate () {
+    //clear old elements first
+    _elements = [];
+
     var elements = document.querySelectorAll('*[data-kui-position]');
 
     for (var i = 0;i < elements.length;i++) {
@@ -87,7 +82,7 @@
           event: event
         });
       } else {
-        _debug('Unknown value for data-kui-position attribute.');
+        _error('Unknown value for data-kui-position attribute.');
       }
 
     }
@@ -97,8 +92,35 @@
   * Check a single element position and return the correct event name
   *
   */
-  function _position (element) {
+  function _position (element, event) {
+    //because we can have compound events
+    var elementEvents = event.split(' ');
 
+    //a boolean flag to check if we should trigger the event
+    var trigger = true;
+
+    //element's position
+    var top = element.getBoundingClientRect().top;
+    var bottom = element.getBoundingClientRect().bottom;
+    var left = element.getBoundingClientRect().left;
+    var right = element.getBoundingClientRect().right;
+
+    //browser's width and height
+    var height = window.innerHeight || document.documentElement.clientHeight;
+    var width = window.innerWidth || document.documentElement.clienWidth;
+
+    // check `in` event
+    if (elementEvents.indexOf('in') > -1) {
+     if (top >= 0 && left >= 0 && bottom <= height && right <= width) {
+       trigger = trigger && true;
+     } else {
+       trigger = false;
+     }
+    }
+
+    if (trigger) {
+      _emit(event);
+    }
   };
 
   /**
@@ -106,7 +128,9 @@
   *
   */
   function _positions (elements) {
-
+    for (var i = 0; i < elements.length; i++) {
+      _position.call(this, elements[i].element, elements[i].event);
+    };
   };
 
   /**
@@ -165,17 +189,19 @@
   * Start the module
   */
   function _init () {
-    _populate.call();
-  };
+    _populate.call(this);
 
-  // init the module
-  _init();
+    if (_options.triggerOnInit == true) {
+      _positions.call(this, _elements);
+    }
+  };
 
   return {
     _options: _options,
     _elements: _elements,
     on: _on,
     once: _once,
-    removeListener: _removeListener
+    removeListener: _removeListener,
+    init: _init
   };
 }));
