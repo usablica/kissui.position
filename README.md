@@ -7,7 +7,7 @@ This library is a part of Kissui project.
 
 Using this libarary is as easy as adding `data-kui-position` attribute to your elements:
 
-```
+```html
 <p data-kui-position="in"></p>
 ```
 
