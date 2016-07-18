@@ -49,8 +49,29 @@ kissuiPosition.on('paragraph', function (element) {
 
 ## * event
 
+If you want to get all events, simply bind a callback function to `*` event:
+
+```js
+kissuiPosition.on('*', function (element, event) {
+  console.log('*', element, event);
+});
+```
+
 ## position event
 
+Also, you can get all events using its unique `data-kui-position` attribute value. So, imagine you have:
+
+```html
+<p id="paragraph" data-kui-position="in right">this element is tracking by kissui.position</p>
+```
+
+then you can listen to events from `in right` (with the same order):
+
+```js
+kissuiPosition.on('in right', function (element) {
+  console.log('single', element);
+});
+```
 
 # Author
 Afshin Mehrabani
