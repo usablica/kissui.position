@@ -19,7 +19,38 @@ kissuiPosition.on ('in', function (element) {
 });
 ```
 
+and to init the library, call this before `</body>`:
+
+```js
+kissuiPosition.init();
+```
+
 That's it. 
+
+# Events
+
+Here is a list of available events.
+
+## ID-based event
+
+You can get the events of an element using its ID. Let's say you have:
+
+```html
+<p id="paragraph" data-kui-position="in right">This element is tracking by Kissui.Position</p>
+```
+
+then you can get events using:
+
+```js
+kissuiPosition.on('paragraph', function (element) {
+  console.log('with id', element);
+});
+```
+
+## * event
+
+## position event
+
 
 # Author
 Afshin Mehrabani
