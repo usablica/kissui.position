@@ -5,25 +5,20 @@
             margin: 0;
             padding: 0;
           }
+
         </style>
     </head>
 
     <body>
-        <p id="paragraph" data-kui-position="in right" style="right: 0px;margin: 0; padding: 0;position: absolute;background-color: red;">This element is tracking by Kissui.Position</p>
+        <div style="height: 1000px; border: 1px solid black;width: 500px;">
+        <p id="paragraph" data-kui-position="out" style="display: block;margin-top: 100px;background-color: red;">this element is tracking by kissui.position</p>
+        </div>
 
         <script src='../index.js'></script>
 
         <script type="text/javascript">
-            kissuiPosition.on('in right', function (element) {
-                console.log('single', element);
-            });
-
             kissuiPosition.on('paragraph', function (element) {
                 console.log('with id', element);
-            });
-
-            kissuiPosition.on('*', function (element, event) {
-                console.log('*', element, event);
             });
 
             kissuiPosition.init();
