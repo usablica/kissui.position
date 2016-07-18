@@ -9,13 +9,21 @@
     </head>
 
     <body>
-        <p data-kui-position="in right" style="right: 100px;margin: 0; padding: 0;position: absolute;background-color: red;">This element is tracking by Kissui.Position</p>
+        <p id="paragraph" data-kui-position="in right" style="right: 0px;margin: 0; padding: 0;position: absolute;background-color: red;">This element is tracking by Kissui.Position</p>
 
         <script src='../index.js'></script>
 
         <script type="text/javascript">
-            kissuiPosition.on('in right', function () {
-                console.log('boooo');
+            kissuiPosition.on('in right', function (element) {
+                console.log('single', element);
+            });
+
+            kissuiPosition.on('paragraph', function (element) {
+                console.log('with id', element);
+            });
+
+            kissuiPosition.on('*', function (element, event) {
+                console.log('*', element, event);
             });
 
             kissuiPosition.init();

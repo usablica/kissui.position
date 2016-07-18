@@ -162,7 +162,11 @@
     }
 
     if (trigger) {
-      _emit(event);
+      if (element.getAttribute('id')) {
+        _emit(element.getAttribute('id'), element);
+      }
+      _emit(event, element);
+      _emit('*', element, event);
     }
   };
 
