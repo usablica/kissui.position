@@ -115,8 +115,8 @@
     var elementWidth = element.getBoundingClientRect().width;
 
     //browser's width and height
-    var height = window.innerHeight || document.documentElement.clientHeight;
-    var width = window.innerWidth || document.documentElement.clienWidth;
+    var height = document.body.clientHeight || document.documentElement.clientHeight;
+    var width = document.body.clientWidth || document.documentElement.clienWidth;
 
     // check `in` event
     if (elementEvents.indexOf('in') > -1) {
@@ -169,6 +169,24 @@
     // check `bottom` event
     if (elementEvents.indexOf('bottom') > -1) {
      if (bottom == height) {
+       trigger = trigger && true;
+     } else {
+       trigger = false;
+     }
+    }
+
+    // check `middle` event
+    if (elementEvents.indexOf('middle') > -1) {
+      if (top + (elementHeight / 2) == (height / 2)) {
+       trigger = trigger && true;
+     } else {
+       trigger = false;
+     }
+    }
+
+    // check `center` event
+    if (elementEvents.indexOf('center') > -1) {
+     if (left + (elementWidth / 2) == (width / 2)) {
        trigger = trigger && true;
      } else {
        trigger = false;
