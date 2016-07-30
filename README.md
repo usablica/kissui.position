@@ -29,7 +29,36 @@ That's it.
 
 # Events
 
-Here is a list of available events.
+Here is a list of available events:
+
+- `in` - when element is in the viewport
+- `out` - when element is not in the viewport
+- `middle` - center aligned element (vertically)
+- `center` - center aligned element (horizontally)
+- `top` - element at the top of the page
+- `bottom` - elemennt at the bottom of the page
+- `left` - element at the left side of the page
+- `right` - element at the right side of the page
+
+Also, it is possible to use a compond of events together. 
+
+**Example:**  
+
+Element is in the viewport and center of the page:
+
+```html
+<p data-kui-position="in center"></p>
+```
+
+Element is located in the center and middle of the page:
+
+```html
+<p data-kui-position="in middle center"></p>
+```
+
+# EventListener
+
+It is possible to listen to events and catch them using following methods.
 
 ## ID-based event
 
