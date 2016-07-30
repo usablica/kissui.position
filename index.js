@@ -46,6 +46,7 @@
     'top',
     'bottom',
     'left',
+    'center',
     'right'
   ];
 
@@ -76,11 +77,26 @@
       var element = elements[i];
       var event = element.getAttribute(_options.attribute);
 
-      _elements.push({
-        element: element,
-        event: event
-      });
+      _add(element, event);
     }
+  };
+
+  /**
+  * Adds a new item to _elements array
+  *
+  */
+  function _add (element, event) {
+    _elements.push({
+      element: element,
+      event: event
+    });
+  };
+
+  /**
+  * Removes all items in _elements
+  */
+  function _reset () {
+     _elements = [];
   };
 
   /**
@@ -288,6 +304,8 @@
     once: _once,
     removeListener: _removeListener,
     init: _init,
-    positions: _positions
+    positions: _positions,
+    add: _add,
+    reset: _reset
   };
 }));
