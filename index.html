@@ -1,0 +1,151 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <title>Kissui.position by usablica</title>
+
+    <link rel="stylesheet" href="stylesheets/styles.css">
+    <link rel="stylesheet" href="stylesheets/github-light.css">
+    <meta name="viewport" content="width=device-width">
+    <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="wrapper">
+      <header>
+        <h1>Kissui.position</h1>
+        <p>Track element(s) on the page like a boss.</p>
+
+        <p class="view"><a href="https://github.com/usablica/kissui.position">View the Project on GitHub <small>usablica/kissui.position</small></a></p>
+
+
+        <ul>
+          <li><a href="https://github.com/usablica/kissui.position/zipball/master">Download <strong>ZIP File</strong></a></li>
+          <li><a href="https://github.com/usablica/kissui.position/tarball/master">Download <strong>TAR Ball</strong></a></li>
+          <li><a href="https://github.com/usablica/kissui.position">View On <strong>GitHub</strong></a></li>
+        </ul>
+      </header>
+      <section>
+        <h1>
+<a id="kissuiposition" class="anchor" href="#kissuiposition" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>kissui.position</h1>
+
+<p>Track element(s) on the page like a boss.</p>
+
+<p>This library is a part of Kissui project.</p>
+
+<h1>
+<a id="getting-started" class="anchor" href="#getting-started" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Getting Started</h1>
+
+<p>Using this libarary is as easy as adding <code>data-kui-position</code> attribute to your elements:</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">p</span> <span class="pl-e">data-kui-position</span>=<span class="pl-s"><span class="pl-pds">"</span>in<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">p</span>&gt;</pre></div>
+
+<p>and then bind an event listener:</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">kissuiPosition</span>.<span class="pl-en">on</span> (<span class="pl-s"><span class="pl-pds">'</span>in<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">element</span>) {
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>yay!<span class="pl-pds">'</span></span>, element);
+});</pre></div>
+
+<p>and to init the library, call this before <code>&lt;/body&gt;</code>:</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">kissuiPosition</span>.<span class="pl-en">init</span>();</pre></div>
+
+<p>That's it. </p>
+
+<h1>
+<a id="events" class="anchor" href="#events" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Events</h1>
+
+<p>Here is a list of available events:</p>
+
+<ul>
+<li>
+<code>in</code> - when element is in the viewport</li>
+<li>
+<code>out</code> - when element is not in the viewport</li>
+<li>
+<code>middle</code> - center aligned element (vertically)</li>
+<li>
+<code>center</code> - center aligned element (horizontally)</li>
+<li>
+<code>top</code> - element at the top of the page</li>
+<li>
+<code>bottom</code> - elemennt at the bottom of the page</li>
+<li>
+<code>left</code> - element at the left side of the page</li>
+<li>
+<code>right</code> - element at the right side of the page</li>
+</ul>
+
+<p>Also, it is possible to use a compond of events together. </p>
+
+<p><strong>Example:</strong>  </p>
+
+<p>Element is in the viewport and center of the page:</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">p</span> <span class="pl-e">data-kui-position</span>=<span class="pl-s"><span class="pl-pds">"</span>in center<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">p</span>&gt;</pre></div>
+
+<p>Element is located in the center and middle of the page:</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">p</span> <span class="pl-e">data-kui-position</span>=<span class="pl-s"><span class="pl-pds">"</span>in middle center<span class="pl-pds">"</span></span>&gt;&lt;/<span class="pl-ent">p</span>&gt;</pre></div>
+
+<h1>
+<a id="eventlistener" class="anchor" href="#eventlistener" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>EventListener</h1>
+
+<p>It is possible to listen to events and catch them using following methods.</p>
+
+<h2>
+<a id="id-based-event" class="anchor" href="#id-based-event" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>ID-based event</h2>
+
+<p>You can get the events of an element using its ID. Let's say you have:</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">p</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>paragraph<span class="pl-pds">"</span></span> <span class="pl-e">data-kui-position</span>=<span class="pl-s"><span class="pl-pds">"</span>in right<span class="pl-pds">"</span></span>&gt;This element is tracking by Kissui.Position&lt;/<span class="pl-ent">p</span>&gt;</pre></div>
+
+<p>then you can get events using:</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">kissuiPosition</span>.<span class="pl-en">on</span>(<span class="pl-s"><span class="pl-pds">'</span>paragraph<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">element</span>) {
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>with id<span class="pl-pds">'</span></span>, element);
+});</pre></div>
+
+<h2>
+<a id="-event" class="anchor" href="#-event" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>* event</h2>
+
+<p>If you want to get all events, simply bind a callback function to <code>*</code> event:</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">kissuiPosition</span>.<span class="pl-en">on</span>(<span class="pl-s"><span class="pl-pds">'</span>*<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">element</span>, <span class="pl-c1">event</span>) {
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>*<span class="pl-pds">'</span></span>, element, <span class="pl-c1">event</span>);
+});</pre></div>
+
+<h2>
+<a id="position-event" class="anchor" href="#position-event" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>position event</h2>
+
+<p>Also, you can get all events using its unique <code>data-kui-position</code> attribute value. So, imagine you have:</p>
+
+<div class="highlight highlight-text-html-basic"><pre>&lt;<span class="pl-ent">p</span> <span class="pl-e">id</span>=<span class="pl-s"><span class="pl-pds">"</span>paragraph<span class="pl-pds">"</span></span> <span class="pl-e">data-kui-position</span>=<span class="pl-s"><span class="pl-pds">"</span>in right<span class="pl-pds">"</span></span>&gt;this element is tracking by kissui.position&lt;/<span class="pl-ent">p</span>&gt;</pre></div>
+
+<p>then you can listen to events from <code>in right</code> (with the same order):</p>
+
+<div class="highlight highlight-source-js"><pre><span class="pl-smi">kissuiPosition</span>.<span class="pl-en">on</span>(<span class="pl-s"><span class="pl-pds">'</span>in right<span class="pl-pds">'</span></span>, <span class="pl-k">function</span> (<span class="pl-smi">element</span>) {
+  <span class="pl-en">console</span>.<span class="pl-c1">log</span>(<span class="pl-s"><span class="pl-pds">'</span>single<span class="pl-pds">'</span></span>, element);
+});</pre></div>
+
+<h1>
+<a id="author" class="anchor" href="#author" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Author</h1>
+
+<p>Afshin Mehrabani</p>
+
+<h1>
+<a id="license" class="anchor" href="#license" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>License</h1>
+
+<p>MIT</p>
+      </section>
+      <footer>
+        <p>This project is maintained by <a href="https://github.com/usablica">usablica</a></p>
+        <p><small>Hosted on GitHub Pages &mdash; Theme by <a href="https://github.com/orderedlist">orderedlist</a></small></p>
+      </footer>
+    </div>
+    <script src="javascripts/scale.fix.js"></script>
+    
+  </body>
+</html>
