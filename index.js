@@ -68,7 +68,7 @@
   * Find elements or import them via options (later)
   */
   function _populate () {
-    var elements = document.querySelectorAll('*[data-kui-position]');
+    var elements = document.querySelectorAll('*[' + _options.attribute + ']');
 
     for (var i = 0;i < elements.length;i++) {
       var element = elements[i];
@@ -83,10 +83,27 @@
   *
   */
   function _add (element, event) {
-    _elements.push({
-      element: element,
-      event: event
-    });
+    var events = event.split(' ');
+    // is this valid to add this element? e.g. you can't have `blahblah` as event name
+    var valid = true;
+
+    for (var i = 0; i < events.length; i++) {
+      var ex = events[i];
+
+      if (_options.events.indexOf(ex) == -1) {
+        valid = false;
+        break;
+      }
+    }
+
+    if (valid) {
+      _elements.push({
+        element: element,
+        event: event
+      });
+    } else {
+      _error('Invalid event name: `' + event + '`. Skipping ' + element);
+    }
   };
 
   /**
@@ -128,8 +145,9 @@
     var elementWidth = element.getBoundingClientRect().width;
 
     //browser's width and height
-    var height = document.body.clientHeight || document.documentElement.clientHeight;
-    var width = document.body.clientWidth || document.documentElement.clienWidth;
+    var height = window.innerHeight || document.documentElement.clientHeight;
+    // to get the width of viewport WITHOUT scrollbar
+    var width = document.body.clientWidth || document.documentElement.clientWidth;
 
     // check `in` event
     if (elementEvents.indexOf('in') > -1) {
