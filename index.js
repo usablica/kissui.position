@@ -68,9 +68,6 @@
   * Find elements or import them via options (later)
   */
   function _populate () {
-    //clear old elements first
-    _elements = [];
-
     var elements = document.querySelectorAll('*[data-kui-position]');
 
     for (var i = 0;i < elements.length;i++) {

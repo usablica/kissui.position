@@ -1,6 +1,6 @@
 {
   "name": "kissui.position",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Track element(s) on the page like a boss.",
   "main": "index.js",
   "scripts": {
