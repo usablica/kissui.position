@@ -1,7 +1,7 @@
 {
   "name": "kissui.position",
   "description": "Track element(s) on the page like a boss.",
-  "main": "index.js",
+  "main": "position.js",
   "authors": [
     "Afshin Mehrabani"
   ],

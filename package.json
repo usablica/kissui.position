@@ -2,7 +2,7 @@
   "name": "kissui.position",
   "version": "0.1.1",
   "description": "Track element(s) on the page like a boss.",
-  "main": "index.js",
+  "main": "position.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
