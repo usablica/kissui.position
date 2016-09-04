@@ -114,7 +114,7 @@
   * Removes all items in _elements
   */
   function _reset () {
-     _elements = [];
+    _elements = [];
   };
 
   /**
@@ -265,6 +265,12 @@
 
     _scrollTop = document.body.scrollTop;
     _scrollLeft = document.body.scrollLeft;
+
+    // custom scroll event
+    _emit('scroll', {
+      top: document.body.scrollTop,
+      left: document.body.scrollLeft
+    });
   };
 
   /**
