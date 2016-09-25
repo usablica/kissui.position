@@ -3,6 +3,10 @@ Track element(s) on the page like a boss.
 
 This library is a part of Kissui project.
 
+# Install
+
+You can use *NPM* or *Bower* or *download the package manually*.
+
 # Getting Started
 
 Using this libarary is as easy as adding `data-kui-position` attribute to your elements:
@@ -39,6 +43,7 @@ Here is a list of available events:
 - `bottom` - elemennt at the bottom of the page
 - `left` - element at the left side of the page
 - `right` - element at the right side of the page
+- `partially` - with one only works with `out` event, e.g. `partially out` and it means when the element is partially out of the element (e.g. half of the height or width)
 
 Also, it is possible to use a compond of events together. 
 
@@ -101,6 +106,13 @@ kissuiPosition.on('in right', function (element) {
   console.log('single', element);
 });
 ```
+
+## TODOs
+
+- The combination of `out` and other events are not completely implemented. now it works with `top` only, e.g. `out top`. we should implement other positions as well.
+- Unit testing
+
+What to help? I have a look at the TODO list and send a PR, cheers.
 
 # Author
 Afshin Mehrabani
