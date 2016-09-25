@@ -46,6 +46,7 @@
   _options.events = [
     'in',
     'out',
+    'partially',
     'middle',
     'top',
     'bottom',
@@ -148,11 +149,19 @@
   *
   */
   function _position (element, event) {
+    //element should be added to the page
+    //this case happens when element is removed from the page so we ignore the element
+    if (element.parentNode == null) return;
+
     //because we can have compound events
     var elementEvents = event.split(' ');
 
     //a boolean flag to check if we should trigger the event
     var trigger = true;
+
+    //a flag to process `out` events
+    //e.g. `out top`
+    var isOut = false;
 
     //element's position
     var top = element.getBoundingClientRect().top;
@@ -172,41 +181,60 @@
 
     // check `in` event
     if (elementEvents.indexOf('in') > -1) {
-     if (top >= 0 && left >= 0 && bottom <= height && right <= width) {
-       trigger = trigger && true;
-     } else {
-       trigger = false;
-     }
+      if (top >= 0 && left >= 0 && bottom <= height && right <= width) {
+        trigger = trigger && true;
+      } else {
+        trigger = false;
+      }
     }
 
     // check `out` event
     if (elementEvents.indexOf('out') > -1) {
-     if ((top + elementHeight) < 0 ||
-         (left + elementWidth) < 0 ||
-         left > width ||
-         top > height) {
-       trigger = trigger && true;
-     } else {
-       trigger = false;
-     }
+      //to handle the `out {whatever}` events later in this procedure
+      isOut = true;
+
+      if (elementEvents.indexOf('partially') > -1) {
+        // partially out
+        if (top < 0 || left < 0 || right > width || bottom > height) {
+          trigger = trigger && true;
+        } else {
+          trigger = false;
+        }
+      } else {
+        // element is fully out of page
+        if ((top + elementHeight) < 0 || (left + elementWidth) < 0 || left > width || top > height) {
+          trigger = trigger && true;
+        } else {
+          trigger = false;
+        }
+      }
     }
 
     // check `top` event
     if (elementEvents.indexOf('top') > -1) {
-     if (top == 0 || _between(0, top, topDelta)) {
-       trigger = trigger && true;
-     } else {
-       trigger = false;
-     }
+      if (isOut) {
+        // it means when the element is out and in the top of the screen
+        if (top < 0) {
+          trigger = trigger && true;
+        } else {
+          trigger = false;
+        }
+      } else {
+        if (top == 0 || _between(0, top, topDelta)) {
+          trigger = trigger && true;
+        } else {
+          trigger = false;
+        }
+      }
     }
 
     // check `left` event
     if (elementEvents.indexOf('left') > -1) {
-     if (left == 0 || _between(0, left, leftDelta)) {
-       trigger = trigger && true;
-     } else {
-       trigger = false;
-     }
+      if (left == 0 || _between(0, left, leftDelta)) {
+        trigger = trigger && true;
+      } else {
+        trigger = false;
+      }
     }
 
     // check `right` event
@@ -249,6 +277,7 @@
       if (element.getAttribute('id')) {
         _emit(element.getAttribute('id'), element);
       }
+
       _emit(event, element);
       _emit('*', element, event);
     }
